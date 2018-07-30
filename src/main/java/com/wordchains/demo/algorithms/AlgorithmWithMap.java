@@ -23,6 +23,7 @@ public class AlgorithmWithMap implements Algorithm {
     private StringBuilder lastGoogWord;
     private StringBuilder firstWord;
     private StringBuilder secondWord;
+    private String message;
 
     @Override
     public void setDictionary(Collection collection) {
@@ -40,11 +41,13 @@ public class AlgorithmWithMap implements Algorithm {
 
     private boolean checkWordsinDictionary(StringBuilder firstWord, StringBuilder secondWord) {
         if(!dictionary.contains(firstWord.toString())){
-            System.out.println(firstWord+" is not in dictionary");
+            logger.info(TAG+" "+firstWord+" is not in dictionary");
+            message=firstWord+" is not in dictionary";
             return true;
         }
         if(!dictionary.contains(secondWord.toString())){
-            System.out.println(secondWord+" is not in dictionary");
+            logger.info(TAG+" "+secondWord+" is not in dictionary");
+            message=secondWord+" is not in dictionary";
             return true;
         }
         return false;
@@ -92,7 +95,8 @@ public class AlgorithmWithMap implements Algorithm {
                     notFindWord();
                 }
                 if (counterTrialFindWords ==currentWord.length()){
-                    System.out.println("I can not find words");
+                    logger.info("I can not find words");
+                    message="I can not find words";
                     return null;
                 }
             }
@@ -131,5 +135,11 @@ public class AlgorithmWithMap implements Algorithm {
 
     private void createModel(StringBuilder firstWord) {
         word = new Word(firstWord);
+    }
+
+    @Override
+    public String getMessage() {
+        logger.info(TAG+" message "+message);
+        return message;
     }
 }
